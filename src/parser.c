@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "activation_layer.h"
+#include "flatten_layer.h"
 #include "activations.h"
 #include "assert.h"
 #include "avgpool_layer.h"
@@ -98,6 +99,7 @@ LAYER_TYPE string_to_layer_type(char * type)
     if (strcmp(type, "[empty]") == 0
         || strcmp(type, "[silence]") == 0) return EMPTY;
     if (strcmp(type, "[implicit]") == 0) return IMPLICIT;
+    if (strcmp(type, "[flatten]") == 0) return FLATTEN;
     return BLANK;
 }
 
@@ -1072,6 +1074,20 @@ layer parse_activation(list *options, size_params params)
     return l;
 }
 
+layer parse_flatten(list *options, size_params params)
+{
+    layer l = make_flatten_layer(params.batch, params.inputs);
+
+    l.out_h = 1;
+    l.out_w = 1;
+    l.out_c = params.h * params.w * params.c;
+    l.h = params.h;
+    l.w = params.w;
+    l.c = params.c;
+
+    return l;
+}
+
 layer parse_upsample(list *options, size_params params, network net)
 {
 
@@ -1447,6 +1463,8 @@ network parse_network_cfg_custom(char *filename, int batch, int time_steps)
             l = parse_local(options, params);
         }else if(lt == ACTIVE){
             l = parse_activation(options, params);
+        }else if(lt == FLATTEN){
+            l = parse_flatten(options, params);
         }else if(lt == RNN){
             l = parse_rnn(options, params);
         }else if(lt == GRU){

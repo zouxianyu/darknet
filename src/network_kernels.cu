@@ -19,6 +19,7 @@
 #include "region_layer.h"
 #include "convolutional_layer.h"
 #include "activation_layer.h"
+#include "flatten_layer.h"
 #include "maxpool_layer.h"
 #include "reorg_layer.h"
 #include "avgpool_layer.h"

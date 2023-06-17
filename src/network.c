@@ -19,6 +19,7 @@
 #include "local_layer.h"
 #include "convolutional_layer.h"
 #include "activation_layer.h"
+#include "flatten_layer.h"
 #include "detection_layer.h"
 #include "region_layer.h"
 #include "normalization_layer.h"

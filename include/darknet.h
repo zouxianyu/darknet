@@ -193,7 +193,8 @@ typedef enum {
     EMPTY,
     BLANK,
     CONTRASTIVE,
-    IMPLICIT
+    IMPLICIT,
+    FLATTEN
 } LAYER_TYPE;
 
 // layer.h
